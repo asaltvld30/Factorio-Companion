@@ -37,9 +37,7 @@ def setup_firebase():
         'databaseURL': 'https://factorio-companion.firebaseio.com/'
     })
 
-def monitor_directory(path, firebase_items_ref):
-    stats_ref = firebase_items_ref.child('items')
-
+def monitor_directory(path, stats_ref):
     hDir = win32file.CreateFile (
         path,
         FILE_LIST_DIRECTORY,
