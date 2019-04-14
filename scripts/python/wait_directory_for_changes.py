@@ -96,7 +96,7 @@ def main():
     setup_firebase()
 
     # Get stats db ref
-    stats_ref = db.child('items')
+    stats_ref = db.reference('stats').child('items')
 
     # Monitor directory
     monitor_directory(args.path, stats_ref)
