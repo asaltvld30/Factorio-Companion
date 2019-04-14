@@ -85,7 +85,7 @@ def main():
     parser = argparse.ArgumentParser(
         description=
         """
-        Monitors a directory for changes and uploads file changes to firebase.
+        Monitors a directory and uploads file changes to firebase.
         """
     )
     parser.add_argument("path", help="path to target directory")
