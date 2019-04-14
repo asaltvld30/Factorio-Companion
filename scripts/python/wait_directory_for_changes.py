@@ -1,15 +1,20 @@
 import argparse
 import os
 import json
-
-import win32file
-import win32con
-
+# Firebase imports
 from firebase import firebase
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+# Windows specific imports
+import win32file
+import win32con
 
+CREATE = 1
+DELETE = 2
+UPDATE = 3
+
+# File actions
 ACTIONS = {
   1 : "Created",
   2 : "Deleted",
@@ -71,23 +76,30 @@ def monitor_directory(path, firebase_items_ref):
         )
         for action, file in results:
             full_filename = os.path.join (path, file)
-            # print(full_filename, ACTIONS.get (action, "Unknown")) 
-            if ACTIONS.get (action, "Unknown") == ACTIONS[3]:
+            if ACTIONS.get (action, "Unknown") == ACTIONS[UPDATE]:
                 print(full_filename, ACTIONS.get (action, "Unknown")) 
+                # Post content updates to firebase
                 post_to_firebase(full_filename, stats_ref)
 
 def main():
-    parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument("path", help="display a square of a given number")
+    parser = argparse.ArgumentParser(
+        description=
+        """
+        Monitors a directory and uploads file changes to firebase.
+        """
+    )
+    parser.add_argument("path", help="path to target directory")
     args = parser.parse_args()
-    print(args.path)
+    print("Selected path: ", args.path)
 
     # Setup Firebase
     setup_firebase()
 
+    # Get stats db ref
     stats_ref = db.child('items')
-    monitor_directory(args.path, stats_ref)
 
+    # Monitor directory
+    monitor_directory(args.path, stats_ref)
 
 if __name__== "__main__":
   main()
