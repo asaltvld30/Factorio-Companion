@@ -6,6 +6,7 @@ from firebase import firebase
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+import ntpath
 # Windows specific imports
 import win32file
 import win32con
@@ -25,10 +26,10 @@ ACTIONS = {
 
 FILE_LIST_DIRECTORY = 0x0001
 
-def post_to_firebase(file_path, stats_ref):
+def post_to_firebase(file_path, db_ref):
     with open(file_path) as json_file:  
         data = json.load(json_file)
-        stats_ref.set(data)
+        db_ref.set(data)
 
 def setup_firebase():
     # Initialize the app with a service account, granting admin privileges
@@ -94,7 +95,7 @@ def main():
     setup_firebase()
 
     # Get stats db ref
-    stats_ref = db.reference('stats').child('items')
+    stats_ref = db.reference(ntpath.basename(args.path)).child('stats').child('items')
 
     # Monitor directory
     monitor_directory(args.path, stats_ref)
