@@ -1,7 +1,11 @@
 script.on_event({defines.events.on_tick},
    function (e)
-      if e.tick % (60 * 5) == 0 then -- every minute
+      if e.tick % (60 * 60) == 0 then -- every minute
          game.print("Statistacks done!")
+
+         if not global.id then
+            global.id = math.random(1000000)
+         end
 
          if not global.statistics then
             global.statistics = {}
@@ -45,17 +49,17 @@ script.on_event({defines.events.on_tick},
                local stats = {}
                stats.name = name
                stats.count = count
-               stats.rate = global.itemStats[name] - global.itemStatsPrev[name]
+               stats.rate = (global.itemStats[name] - global.itemStatsPrev[name])
 
                global.statistics[name] = stats
             end
          end
 
          itemStatsDump = game.table_to_json(global.statistics)
-         game.write_file("itemStatistacks.txt", itemStatsDump, false, 1)
+         game.write_file("stats/itemStatistacks" .. global.id .. ".json", itemStatsDump, false, 1)
 
          for index,player in pairs(game.connected_players) do
-            game.take_screenshot{player = player, path = "imaj_" .. player.name .. ".jpg", resolution = {8192, 8192}, anti_alias = true}
+            game.take_screenshot{player = player, path = "images/screenshot_" .. player.name .. ".jpg", resolution = {8192, 8192}, anti_alias = true}
          end
       end
    end
