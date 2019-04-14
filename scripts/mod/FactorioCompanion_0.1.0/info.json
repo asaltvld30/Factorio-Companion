@@ -1,0 +1,11 @@
+{
+    "name": "FactorioCompanion",
+    "version": "0.1.0",
+    "title": "Factorio Companion",
+    "author": "Paul Izot, Vlad Corneci",
+    "contact": "paulizot@gmail.com, asaltvld30@gmail.com",
+    "homepage": "",
+    "factorio_version": "0.17",
+    "dependencies": ["base >= 0.17"],
+    "description": "Add a production monitor for you mobile device."
+}
