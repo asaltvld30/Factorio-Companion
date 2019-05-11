@@ -38,7 +38,7 @@ def setup_firebase():
         'databaseURL': 'https://factorio-companion.firebaseio.com/'
     })
 
-def monitor_directory(path, stats_ref):
+def monitor_directory(path, stats_ref):    
     hDir = win32file.CreateFile (
         path,
         FILE_LIST_DIRECTORY,
@@ -78,6 +78,8 @@ def monitor_directory(path, stats_ref):
             if ACTIONS.get (action, "Unknown") == ACTIONS[UPDATE]:
                 print(full_filename, ACTIONS.get (action, "Unknown")) 
                 # Post content updates to firebase
+                    # Get stats db ref
+                stats_ref = db.reference(ntpath.basename(full_filename)).child('stats').child('items')
                 post_to_firebase(full_filename, stats_ref)
 
 def main():
