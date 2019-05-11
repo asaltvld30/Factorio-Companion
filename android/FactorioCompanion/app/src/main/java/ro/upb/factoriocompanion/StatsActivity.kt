@@ -9,7 +9,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.IgnoreExtraProperties
 import io.reactivex.disposables.Disposable
 
-const val STATS_LOG_TAG = "Stats Activity: "
+const val STATS_LOG_TAG = "StatsActivity: "
 
 class StatsActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
@@ -19,7 +19,7 @@ class StatsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stats)
 
-        database = FirebaseDatabase.getInstance().reference
+        database = FirebaseDatabase.getInstance().reference.child("stats/items")
     }
 
     override fun onResume() {
@@ -27,8 +27,10 @@ class StatsActivity : AppCompatActivity() {
         databaseUpdatesSubscription = database.dataChanges()
             .subscribe({
                 if (it.exists()) {
-                    Log.d(STATS_LOG_TAG, it.toString());
+                    Log.d(STATS_LOG_TAG, it.toString())
                     // Do something with data
+                    // parse the data into our model
+
                 } else {
                     // Data does not exists
                 }
