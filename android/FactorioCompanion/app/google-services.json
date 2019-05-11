@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "456792545064",
+    "firebase_url": "https://factorio-companion.firebaseio.com",
+    "project_id": "factorio-companion",
+    "storage_bucket": "factorio-companion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456792545064:android:d2ac05329e0c934c",
+        "android_client_info": {
+          "package_name": "ro.upb.factoriocompanion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456792545064-130hvvfvpib9ftkk5fh3b4gnlmg0fcqp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcYdh_c7lt9QFuGRXyq3mxcK6Fgl1Brpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456792545064-130hvvfvpib9ftkk5fh3b4gnlmg0fcqp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
