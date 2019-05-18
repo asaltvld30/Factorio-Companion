@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Factorio Companion</string>
+
+    <string name="_name">Name:</string>
+    <string name="_count">Count:</string>
+    <string name="_rate">Rate:</string>
 </resources>

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
+import co.csadev.kellocharts.model.Axis
 import co.csadev.kellocharts.model.Line
 import co.csadev.kellocharts.model.LineChartData
 import co.csadev.kellocharts.model.PointValue
@@ -56,19 +57,6 @@ class StatsActivity : AppCompatActivity() {
             Log.d(LOG_TAG, STATS_ACTIVITY_TAG + "Bind StatsService service")
             bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
-
-
-//        val values = arrayListOf(PointValue(0, 2), PointValue(1, 4), PointValue(2, 3), PointValue(3, 4))
-//
-//        val line = Line(values, color = Color.BLUE, isCubic = true)
-//        val lines = arrayListOf(line)
-//
-//        val data = LineChartData(lines)
-
-//        val chart = LineChartView(this)
-//        chart.lineChartData = data
-
-        findViewById<LineChartView>(R.id.chart).lineChartData = data
     }
 
     override fun onPause() {
