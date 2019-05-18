@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "ro.upb.factoriocompanion"
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -59,7 +59,11 @@ dependencies {
     // required dependency: rxjava2
     implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
 
+    // charts
     implementation 'com.github.gtcompscientist:kellocharts:1.0.1'
+
+    // recycler view
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
 }
 
 // firebase
