@@ -19,6 +19,9 @@ public class StatsService: Service() {
     private lateinit var databaseUpdatesSubscription: Disposable
     private var statsPublishSubject = PublishSubject.create<Array<Stat>>()
 
+    // StatsHistory
+    private var statsHistory = HashMap<String, List<Stat>>()
+
     // Binder given to clients
     private val binder = LocalBinder()
 
@@ -56,20 +59,21 @@ public class StatsService: Service() {
             .doOnError { error -> Log.e(LOG_TAG, error.toString()) }
             .subscribe({ databaseSnapshot ->
                 if (databaseSnapshot.exists()) {
-                    Log.d(LOG_TAG, databaseSnapshot.toString())
-                    // Do something with data
-                    // Parse incoming data and map it to our model
-
                     Log.d(LOG_TAG, statsServiceTag + databaseSnapshot.toString() + Thread.currentThread().name)
 
+                    // Parse data from Firebase
                     val databaseHashMap = databaseSnapshot.value as HashMap<Any, Any?>
-
                     val parsed = Stat.parseIncomingFirebaseHashSet(databaseHashMap)
-//                    databaseSnapshot.value.toString()
-
                     Log.d(LOG_TAG, statsServiceTag + parsed.toString())
 
+                    // Publish parsed data
                     statsPublishSubject.onNext(parsed)
+
+                    // Add to history HM
+                    parsed.forEach { stat ->
+                        updateHistoryFor(stat)
+                    }
+                    // TODO: Save history object to UserPreferences. Maybe?
                 } else {
                     // Data does not exists
                 }
@@ -93,6 +97,13 @@ public class StatsService: Service() {
 
     fun observeStats(): PublishSubject<Array<Stat>> {
         return statsPublishSubject
+    }
+
+    fun updateHistoryFor(stat: Stat) {
+        statsHistory.set(
+            stat.name,
+            statsHistory.getOrDefault(stat.name, listOf<Stat>()) + listOf<Stat>(stat)
+        )
     }
 
     companion object {
