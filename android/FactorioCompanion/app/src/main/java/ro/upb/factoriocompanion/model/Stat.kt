@@ -1,15 +1,23 @@
 package ro.upb.factoriocompanion.model
 
-data class Stat(val name: String, val rate: Double, val count: Long) {
+import java.util.*
+import kotlin.collections.HashMap
 
+data class Stat(val name: String, val rate: Double, val count: Long, val date: Date) {
     fun getImageName(): String {
         return this.name.replace("-", "_")
     }
+
+    constructor(name: String, rate: Double, count: Long) : this(name, rate, count, Stat.getCurrentDateTime())
 
     companion object {
         private const val KEY_RATE = "rate"
         private const val KEY_COUNT = "count"
         private const val KEY_NAME = "name"
+
+        private fun getCurrentDateTime(): Date {
+            return Calendar.getInstance().time
+        }
 
         fun parseIncomingFirebaseHashSet(data: HashMap<*, *>): Array<Stat> {
             return data.entries
@@ -20,7 +28,9 @@ data class Stat(val name: String, val rate: Double, val count: Long) {
                     val count = element.get(KEY_COUNT) as Number
                     val name = element.get(KEY_NAME) as String
 
-                    Stat(name, rate.toDouble(), count.toLong())
+                    val date = getCurrentDateTime()
+
+                    Stat(name, rate.toDouble(), count.toLong(), date)
                 }
                 .sortedByDescending { item -> item.count }
                 .toTypedArray()

@@ -1,7 +1,6 @@
 package ro.upb.factoriocompanion.service
 
 import android.app.Service
-import android.arch.lifecycle.Transformations.map
 import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
@@ -13,8 +12,12 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import ro.upb.factoriocompanion.LOG_TAG
 import ro.upb.factoriocompanion.model.Stat
+import java.util.*
+import kotlin.collections.HashMap
 
-public class StatsService: Service() {
+//class StatHistory(date: Date, stat: Stat)
+
+class StatsService: Service() {
     private lateinit var database: DatabaseReference
     private lateinit var databaseUpdatesSubscription: Disposable
     private var statsPublishSubject = PublishSubject.create<Array<Stat>>()
@@ -85,7 +88,6 @@ public class StatsService: Service() {
         return START_STICKY
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         Log.d(LOG_TAG, statsServiceTag + "onDestroy() " + Thread.currentThread().name)
@@ -99,7 +101,11 @@ public class StatsService: Service() {
         return statsPublishSubject
     }
 
-    fun updateHistoryFor(stat: Stat) {
+    fun getHistoryFor(stat: String): List<Stat>? {
+        return statsHistory.get(stat)
+    }
+
+    private fun updateHistoryFor(stat: Stat) {
         statsHistory.set(
             stat.name,
             statsHistory.getOrDefault(stat.name, listOf<Stat>()) + listOf<Stat>(stat)

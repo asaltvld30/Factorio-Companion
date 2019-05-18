@@ -32,7 +32,7 @@ class StatsActivity : AppCompatActivity() {
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var recyclerDataSet: StatsContainer
 
-    // Stats
+    // Stats Service
     private lateinit var statsService:StatsService
     private var mBound: Boolean = false
     private lateinit var statsSubscription: Disposable

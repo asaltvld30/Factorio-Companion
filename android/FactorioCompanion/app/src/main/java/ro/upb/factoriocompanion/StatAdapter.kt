@@ -1,5 +1,6 @@
 package ro.upb.factoriocompanion
 
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -18,6 +19,7 @@ import co.csadev.kellocharts.view.LineChartView
 import org.w3c.dom.Text
 import ro.upb.factoriocompanion.model.Stat
 
+const val STAT_NAME_KEY = "STAT_NAME_KEY"
 
 class StatsContainer(private var content: Array<Stat>) {
     fun replaceElements(newContent: Array<Stat>) {
@@ -65,6 +67,8 @@ class StatAdapter(private val myDataset: StatsContainer) :
         val imageResource = holder.linearLayout.resources.getIdentifier(myDataset[position].getImageName(), "drawable",  holder.linearLayout.resources.getResourcePackageName(R.drawable.iron_ore))
         holder.linearLayout.findViewById<ImageView>(R.id.item_image).setImageResource(imageResource)
 
+
+        // Set chart here
         val values = arrayListOf(PointValue(0, 2), PointValue(1, 4), PointValue(2, 3), PointValue(3, 4))
 
         val line = Line(values, color = Color.parseColor("#00897B"), isCubic = false)
@@ -79,7 +83,6 @@ class StatAdapter(private val myDataset: StatsContainer) :
         val axisY = Axis(hasLines = true)
         axisX.textColor = R.color.primary_material_light
         axisY.textColor = R.color.primary_material_light
-//        axisX.has
 
         data.axisXBottom = axisX
         data.axisYLeft = axisY
@@ -90,6 +93,14 @@ class StatAdapter(private val myDataset: StatsContainer) :
             holder.linearLayout.setBackgroundColor(holder.linearLayout.resources.getColor(R.color.lightBackgroundAppColor))
         } else {
             holder.linearLayout.setBackgroundColor(Color.WHITE)
+        }
+
+        holder.linearLayout.setOnClickListener { _ ->
+            val intent = Intent(holder.linearLayout.context, StatDetails::class.java).apply {
+                putExtra(STAT_NAME_KEY, myDataset[position].name)
+            }
+
+            holder.linearLayout.context.startActivity(intent)
         }
     }
 
