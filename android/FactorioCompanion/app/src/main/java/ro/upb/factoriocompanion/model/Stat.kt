@@ -15,7 +15,7 @@ data class Stat(val name: String, val rate: Double, val count: Long, val date: D
         private const val KEY_COUNT = "count"
         private const val KEY_NAME = "name"
 
-        private fun getCurrentDateTime(): Date {
+        fun getCurrentDateTime(): Date {
             return Calendar.getInstance().time
         }
 

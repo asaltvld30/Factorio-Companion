@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="lightBackgroundAppColor">#E0F2F1</color>
-    <color name="darkBackgroundAppColor">#E0F7FA</color>
+    <color name="lightBackgroundAppColor">#F5F5F5</color>
+    <color name="darkBackgroundAppColor">#E0E0E0</color>
+
+    <color name="colorChartLine">#BDBDBD</color>
 </resources>

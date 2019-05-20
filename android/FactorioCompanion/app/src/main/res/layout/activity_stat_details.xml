@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:paddingLeft="16dp"
-              android:paddingRight="16dp"
-              android:orientation="vertical" >
+              android:orientation="vertical">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="match_parent"
@@ -12,12 +10,14 @@
                   android:paddingLeft="16dp"
                   android:paddingRight="16dp"
                   android:orientation="horizontal"
-                  android:layout_marginTop="16dp">
+                  android:layout_marginTop="16dp"
+    >
         <ImageView
                 android:id="@+id/item_image"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                android:layout_marginEnd="16dp"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -31,60 +31,117 @@
                           android:paddingRight="16dp"
                           android:orientation="horizontal"
                           android:layout_marginTop="8dp">
-                <TextView
-                        android:layout_width="64dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/_name"/>
+                <!--<TextView-->
+                        <!--android:layout_width="96dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/_name"-->
+                        <!--android:textColor="@color/colorPrimaryDark"-->
+                        <!--android:textSize="32dp"-->
+                <!--/>-->
                 <TextView
                         android:id="@+id/item_name"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-            <!--Rate  -->
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:paddingLeft="16dp"
-                          android:paddingRight="16dp"
-                          android:orientation="horizontal"
-                          android:layout_marginTop="8dp">
-                <TextView
-                        android:layout_width="64dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/_rate"/>
-                <TextView
-                        android:id="@+id/item_rate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-            </LinearLayout>
+                        android:textColor="@color/colorPrimaryDark"
+                        android:gravity="end"
+                        android:textSize="32sp"/>
 
-            <!--Count  -->
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:paddingLeft="16dp"
-                          android:paddingRight="16dp"
-                          android:orientation="horizontal"
-                          android:layout_marginTop="8dp">
-                <TextView
-                        android:layout_width="64dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/_count"/>
-                <TextView
-                        android:id="@+id/item_count"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
             </LinearLayout>
+            <Spinner
+                    android:id="@+id/window_size_spinner"
+                    android:layout_gravity="end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp">
+
+            </Spinner>
         </LinearLayout>
 
     </LinearLayout>
 
-    <co.csadev.kellocharts.view.LineChartView
-            android:id="@+id/chart"
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="8dp"
-            android:paddingBottom="16dp"/>
+            android:orientation="vertical">
+
+
+        <co.csadev.kellocharts.view.LineChartView
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="16dp"
+        android:paddingLeft="16dp"/>
+
+        <!--Rate  -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="16dp"
+                      android:paddingRight="16dp"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="8dp">
+            <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_rate"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"/>
+            <TextView
+                    android:id="@+id/item_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:gravity="end"
+                    android:textSize="18sp"/>
+        </LinearLayout>
+
+        <!--Count  -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="16dp"
+                      android:paddingRight="16dp"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="8dp">
+            <TextView
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_count"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"/>
+            <TextView
+                    android:id="@+id/item_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:gravity="end"
+                    android:textSize="18sp"/>
+        </LinearLayout>
+
+        <!--Average  -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="16dp"
+                      android:paddingRight="16dp"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="8dp">
+            <TextView
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_average"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"/>
+            <TextView
+                    android:id="@+id/item_average"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:gravity="end"
+                    android:textSize="18sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
 
 </LinearLayout>

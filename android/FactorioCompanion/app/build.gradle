@@ -56,8 +56,9 @@ dependencies {
     implementation 'com.androidhuman.rxfirebase2:firebase-core:16.0.5.0'
     implementation 'com.google.firebase:firebase-core:16.0.5'
 
-    // required dependency: rxjava2
+    // required dependency: rx stuff
     implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     // charts
     implementation 'com.github.gtcompscientist:kellocharts:1.0.1'

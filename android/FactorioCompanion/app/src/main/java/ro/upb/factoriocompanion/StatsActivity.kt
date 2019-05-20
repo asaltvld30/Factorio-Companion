@@ -4,22 +4,17 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
-import co.csadev.kellocharts.model.Axis
-import co.csadev.kellocharts.model.Line
-import co.csadev.kellocharts.model.LineChartData
-import co.csadev.kellocharts.model.PointValue
-import co.csadev.kellocharts.view.Chart
-import co.csadev.kellocharts.view.LineChartView
 import com.google.firebase.firestore.IgnoreExtraProperties
 import io.reactivex.disposables.Disposable
 import ro.upb.factoriocompanion.service.StatsService
 import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.widget.ProgressBar
 import ro.upb.factoriocompanion.model.Stat
 
 
@@ -50,6 +45,7 @@ class StatsActivity : AppCompatActivity() {
 
                     recyclerDataSet.replaceElements(element)
                     viewAdapter.notifyDataSetChanged()
+                    findViewById<ProgressBar>(R.id.progress_circular).visibility = View.GONE
                 }
                 .subscribe()
         }
@@ -59,11 +55,21 @@ class StatsActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        // Start & Bind to StatsService
+        Intent(this, StatsService::class.java).also { intent ->
+            Log.d(LOG_TAG, STATS_ACTIVITY_TAG + "Bind StatsService service")
+            bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stats)
 
-        // Start & Bind to StatsService
+        // Start StatsService
         Intent(this, StatsService::class.java).also { intent ->
             Log.d(LOG_TAG, STATS_ACTIVITY_TAG + "Start StatsService service")
             startService(intent)
@@ -71,12 +77,8 @@ class StatsActivity : AppCompatActivity() {
             bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
 
-        val stat1 = Stat("bla1", 12.0, 32)
-        val stat2 = Stat("bla2", 12.0, 32)
 
-
-//        arrayOf(stat1, stat2)
-        recyclerDataSet = StatsContainer(arrayOf(stat1, stat2))
+        recyclerDataSet = StatsContainer(arrayOf<Stat>())
 
         // Setup Recycler view
         viewManager = LinearLayoutManager(this)
@@ -100,15 +102,15 @@ class StatsActivity : AppCompatActivity() {
 
         Log.d(LOG_TAG, STATS_ACTIVITY_TAG + "Dispose the stats subscription.")
         statsSubscription.dispose()
+
+        if (mBound) {
+            Log.d(LOG_TAG, STATS_ACTIVITY_TAG + "onPause(): Unbind service")
+            mBound = false
+            unbindService(connection)
+        }
     }
 
     companion object {
         const val STATS_ACTIVITY_TAG = "[StatsActivity]: "
     }
 }
-
-@IgnoreExtraProperties
-data class User(
-    var username: String? = "",
-    var email: String? = ""
-)

@@ -8,11 +8,14 @@ import android.util.Log
 import com.androidhuman.rxfirebase2.database.dataChanges
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 import ro.upb.factoriocompanion.LOG_TAG
 import ro.upb.factoriocompanion.model.Stat
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
 
 //class StatHistory(date: Date, stat: Stat)
@@ -27,6 +30,7 @@ class StatsService: Service() {
 
     // Binder given to clients
     private val binder = LocalBinder()
+
 
     /**
      * Class used for the client Binder.  Because we know this service always
@@ -49,10 +53,6 @@ class StatsService: Service() {
         // Initialize Firebase Database
         Log.d(LOG_TAG, statsServiceTag + "Initialize Firebase Database.")
         database = FirebaseDatabase.getInstance().reference.child("stats/items")
-
-        // Initialize data store
-
-        // Put model into the data store
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -83,7 +83,6 @@ class StatsService: Service() {
             }) {
                 // Handle error
             }
-
 
         return START_STICKY
     }
